@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maintenance - Naaz Property Management</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">Naaz Property Management</div>
+            <div class="user-selector">
+                <button class="user-btn active" onclick="switchUser('tenant')">Tenant View</button>
+                <button class="user-btn" onclick="switchUser('landlord')">Landlord View</button>
+                <button class="user-btn" onclick="switchUser('manager')">Property Manager</button>
+            </div>
+        </header>
+
+        <!-- TENANT VIEW -->
+        <div id="tenant" class="dashboard active">
+            <div class="dashboard-grid">
+                <div class="sidebar">
+                    <h3>Welcome, Sarah</h3>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="index.html#tenant" class="nav-link">
+                                <span>🏠</span> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link active"><span>🔧</span> Maintenance</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="documents.html" class="nav-link">
+                                <span>📄</span> Documents
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>💳</span> Rent & Payments
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>💬</span> Communication
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>⚙️</span> Profile
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Your Requests</h3>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+                                <div><strong>Leaking pipe</strong>
+                                    <div style="font-size: 14px; color: #718096;">Submitted 1 day ago</div>
+                                </div>
+                                <span class="status status-progress">In Progress</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+                                <div><strong>Heating issue</strong>
+                                    <div style="font-size: 14px; color: #718096;">Resolved last week</div>
+                                </div>
+                                <span class="status status-completed">Resolved</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Submit Maintenance Request</h3>
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label class="form-label">Issue Type</label>
+                                <select class="form-input">
+                                    <option>Plumbing</option>
+                                    <option>Electrical</option>
+                                    <option>HVAC</option>
+                                    <option>Appliances</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-input form-textarea"
+                                    placeholder="Describe the issue..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Photos/Videos</label>
+                                <div class="file-upload">📷 Click or drag to upload (max 5 files)</div>
+                            </div>
+                            <button class="btn btn-primary">Submit Request</button>
+                        </form>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- LANDLORD VIEW -->
+        <div id="landlord" class="dashboard">
+            <div class="dashboard-grid">
+                <div class="sidebar">
+                    <h3>Welcome, John</h3>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="index.html#landlord" class="nav-link">
+                                <span>📊</span> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link active"><span>🔧</span> Maintenance</a></li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>🏢</span> Properties
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>👥</span> Tenants
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>💰</span> Financials
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>💬</span> Communication
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>🤖</span> AI Compliance
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Open Maintenance Tickets</h3>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+                                <div><strong>AC not cooling - Unit 1B</strong>
+                                    <div style="font-size: 14px; color: #718096;">456 Sunset Blvd</div>
+                                </div>
+                                <span class="status status-pending">Pending</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+                                <div><strong>Kitchen leak - Unit 2A</strong>
+                                    <div style="font-size: 14px; color: #718096;">123 University Ave</div>
+                                </div>
+                                <span class="status status-progress">In Progress</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Maintenance Costs</h3>
+                        </div>
+                        <div>
+                            <p><strong>Total This Month:</strong> $720</p>
+                            <p><strong>Average per Unit:</strong> $90</p>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- PROPERTY MANAGER VIEW -->
+        <div id="manager" class="dashboard">
+            <div class="dashboard-grid">
+                <div class="sidebar">
+                    <h3>Welcome, Mike</h3>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="index.html#dashboard" class="nav-link">
+                                <span>📋</span> Task Center
+                            </a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link active"><span>🔧</span> Maintenance</a></li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>🏠</span> Properties
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>👥</span> Communication
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>📊</span> Reports
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Incoming Requests</h3>
+                            <button class="btn btn-secondary">View All</button>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+                                <div><strong>Toilet overflow - Unit 3C</strong>
+                                    <div style="font-size: 14px; color: #718096;">789 Wyandotte</div>
+                                </div>
+                                <button class="btn btn-primary">Assign</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Schedule Repair</h3>
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label class="form-label">Assign To</label>
+                                <select class="form-input">
+                                    <option>Choose contractor</option>
+                                    <option>Mike's Plumbing</option>
+                                    <option>Safe Electric</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Schedule Date</label>
+                                <input type="date" class="form-input" />
+                            </div>
+                            <button class="btn btn-secondary">Schedule</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function switchUser(userType) {
+            document.querySelectorAll(".dashboard").forEach(d => d.classList.remove("active"));
+            document.getElementById(userType).classList.add("active");
+
+            document.querySelectorAll(".user-btn").forEach(b => b.classList.remove("active"));
+            event.target.classList.add("active");
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naaz Property Management</title>
+    <!-- Import your existing CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">Naaz Property Management</div>
+            <div class="user-selector">
+                <button class="user-btn active" onclick="switchUser('tenant')">Tenant View</button>
+                <button class="user-btn" onclick="switchUser('landlord')">Landlord View</button>
+                <button class="user-btn" onclick="switchUser('manager')">Property Manager</button>
+            </div>
+        </header>
+
+        <!-- Tenant Dashboard -->
+        <div id="tenant" class="dashboard active">
+            <div class="dashboard-grid">
+                <div class="sidebar">
+                    <h3 style="margin-bottom: 20px; color: #2d3748;">Welcome, Sarah</h3>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <span>🏠</span> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="maintenance.html" class="nav-link">
+                                <span>🔧</span> Maintenance
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="documents.html" class="nav-link">
+                                <span>📄</span> Documents
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>💳</span> Rent & Payments
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>💬</span> Communication
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>⚙️</span> Profile
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="main-content">
+                    <div class="alert alert-info">
+                        <strong>Rent Due:</strong> Your rent payment of $1,200 is due in 3 days. <a href="#"
+                            style="color: #3182ce;">Pay Now</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Quick Actions</h3>
+                        </div>
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <button class="btn btn-primary">Pay Rent</button>
+                            <button class="btn btn-secondary">Report Issue</button>
+                            <button class="btn btn-secondary">View Lease</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Maintenance Requests</h3>
+                            <button class="btn btn-primary">+ New Request</button>
+                        </div>
+                        <div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+                                <div>
+                                    <strong>Kitchen Faucet Leak</strong>
+                                    <div style="font-size: 14px; color: #718096;">Submitted 2 days ago</div>
+                                </div>
+                                <span class="status status-progress">In Progress</span>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+                                <div>
+                                    <strong>Heating Not Working</strong>
+                                    <div style="font-size: 14px; color: #718096;">Submitted 1 week ago</div>
+                                </div>
+                                <span class="status status-completed">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Submit Maintenance Request</h3>
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label class="form-label">Issue Type</label>
+                                <select class="form-input">
+                                    <option>Select issue type...</option>
+                                    <option>Plumbing</option>
+                                    <option>Electrical</option>
+                                    <option>HVAC</option>
+                                    <option>Appliances</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-input form-textarea"
+                                    placeholder="Describe the issue in detail..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Photos/Videos</label>
+                                <div class="file-upload">
+                                    <p>📷 Click to upload photos or drag & drop</p>
+                                    <p style="font-size: 12px; color: #718096;">Maximum 5 files, 10MB each</p>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Request</button>
+                        </form>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Landlord Dashboard -->
+        <div id="landlord" class="dashboard">
+            <div class="dashboard-grid">
+                <div class="sidebar">
+                    <h3 style="margin-bottom: 20px; color: #2d3748;">Welcome, John</h3>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <span>📊</span> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="maintenance.html" class="nav-link">
+                                <span>🔧</span> Maintenance
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>🏢</span> Properties
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>👥</span> Tenants
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>💰</span> Financials
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>💬</span> Communication
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>🤖</span> AI Compliance
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="main-content">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Properties</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">95%</div>
+                            <div class="stat-label">Occupancy Rate</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">$18,400</div>
+                            <div class="stat-label">Monthly Revenue</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Open Requests</div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <strong>Compliance Alert:</strong> 2 properties need fire safety inspections this month. <a
+                            href="#" style="color: #c05621;">View Details</a>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Property Activity</h3>
+                        </div>
+                        <div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+                                <div>
+                                    <strong>123 University Ave - Unit 2A</strong>
+                                    <div style="font-size: 14px; color: #718096;">Rent payment received - $1,200</div>
+                                </div>
+                                <span style="font-size: 12px; color: #718096;">2 hours ago</span>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+                                <div>
+                                    <strong>456 Sunset Blvd - Unit 1B</strong>
+                                    <div style="font-size: 14px; color: #718096;">Maintenance request: Kitchen faucet
+                                    </div>
+                                </div>
+                                <span style="font-size: 12px; color: #718096;">1 day ago</span>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+                                <div>
+                                    <strong>789 Wyandotte St - Unit 3C</strong>
+                                    <div style="font-size: 14px; color: #718096;">New tenant application received</div>
+                                </div>
+                                <span style="font-size: 12px; color: #718096;">3 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">AI-Powered Compliance Dashboard</h3>
+                            <button class="btn btn-primary">Generate Report</button>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 12px; color: #2d3748;">Windsor Bylaw Compliance Status</h4>
+                            <div class="compliance-item">
+                                <input type="checkbox" class="checkbox" checked disabled>
+                                <span>Fire safety equipment inspected (Due: Jan 2025)</span>
+                                <span class="status status-completed">Compliant</span>
+                            </div>
+                            <div class="compliance-item">
+                                <input type="checkbox" class="checkbox" disabled>
+                                <span>Student housing noise regulations updated</span>
+                                <span class="status status-pending">Action Required</span>
+                            </div>
+                            <div class="compliance-item">
+                                <input type="checkbox" class="checkbox" checked disabled>
+                                <span>Occupancy limits verified for downtown properties</span>
+                                <span class="status status-completed">Compliant</span>
+                            </div>
+                            <div class="compliance-item">
+                                <input type="checkbox" class="checkbox" disabled>
+                                <span>Waste disposal containers adequate (University Ave)</span>
+                                <span class="status status-pending">Review Needed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Manager Dashboard -->
+        <div id="manager" class="dashboard">
+            <div class="dashboard-grid">
+                <div class="sidebar">
+                    <h3 style="margin-bottom: 20px; color: #2d3748;">Welcome, Mike</h3>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <span>📋</span> Task Center
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="maintenance.html" class="nav-link">
+                                <span>🔧</span> Maintenance
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>🏠</span> Properties
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>👥</span> Communication
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span>📊</span> Reports
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="main-content">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">7</div>
+                            <div class="stat-label">Open Tasks</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">24</div>
+                            <div class="stat-label">Properties Managed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">89%</div>
+                            <div class="stat-label">Resolution Rate</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">4.8</div>
+                            <div class="stat-label">Tenant Rating</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Priority Tasks</h3>
+                            <button class="btn btn-primary">+ Add Task</button>
+                        </div>
+                        <div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: #fed7d7; border-radius: 8px; margin-bottom: 12px;">
+                                <div>
+                                    <strong style="color: #c53030;">🚨 Emergency: Heating System Down</strong>
+                                    <div style="font-size: 14px; color: #742a2a;">456 Sunset Blvd - Tenant called this
+                                        morning</div>
+                                </div>
+                                <button class="btn btn-primary">Assign Contractor</button>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: #feebc8; border-radius: 8px; margin-bottom: 12px;">
+                                <div>
+                                    <strong style="color: #dd6b20;">⚠️ Fire Safety Inspection Due</strong>
+                                    <div style="font-size: 14px; color: #9c4221;">123 University Ave - Due within 2
+                                        weeks</div>
+                                </div>
+                                <button class="btn btn-secondary">Schedule</button>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: #e6fffa; border-radius: 8px;">
+                                <div>
+                                    <strong style="color: #319795;">📋 Monthly Property Inspections</strong>
+                                    <div style="font-size: 14px; color: #2c7a7b;">5 properties scheduled for this week
+                                    </div>
+                                </div>
+                                <button class="btn btn-secondary">View Schedule</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Active Maintenance Requests</h3>
+                            <div style="display: flex; gap: 10px;">
+                                <select class="form-input" style="width: auto;">
+                                    <option>All Properties</option>
+                                    <option>123 University Ave</option>
+                                    <option>456 Sunset Blvd</option>
+                                </select>
+                                <select class="form-input" style="width: auto;">
+                                    <option>All Status</option>
+                                    <option>Pending</option>
+                                    <option>In Progress</option>
+                                    <option>Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+                                <div>
+                                    <strong>Kitchen Faucet Leak - Unit 2A</strong>
+                                    <div style="font-size: 14px; color: #718096;">123 University Ave • Sarah Johnson • 2
+                                        days ago</div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <span class="status status-progress">In Progress</span>
+                                    <button class="btn btn-secondary">Update</button>
+                                </div>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+                                <div>
+                                    <strong>AC Not Cooling - Unit 1B</strong>
+                                    <div style="font-size: 14px; color: #718096;">456 Sunset Blvd • Mark Davis • 1 day
+                                        ago</div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <span class="status status-pending">Pending</span>
+                                    <button class="btn btn-primary">Assign</button>
+                                </div>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+                                <div>
+                                    <strong>Bathroom Tile Repair - Unit 3A</strong>
+                                    <div style="font-size: 14px; color: #718096;">789 Wyandotte St • Lisa Chen • 5 days
+                                        ago</div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <span class="status status-completed">Completed</span>
+                                    <button class="btn btn-secondary">View Report</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchUser(userType) {
+            // Hide all dashboards
+            document.querySelectorAll('.dashboard').forEach(dash => {
+                dash.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.user-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected dashboard
+            document.getElementById(userType).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Add some interactive functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add click handlers for nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+
+                        // Remove active class from siblings
+                        this.parentNode.parentNode.querySelectorAll('.nav-link').forEach(l => {
+                            l.classList.remove('active');
+                        });
+
+                        // Add active class to clicked link
+                        this.classList.add('active');
+
+                        // If it's a dashboard link, show the appropriate dashboard
+                        const targetId = this.getAttribute('href').substring(1);
+                        if (targetId === 'tenant' || targetId === 'landlord' || targetId === 'manager') {
+                            switchUser(targetId);
+                        }
+                    }
+                });
+            });
+
+            // Add hover effects to cards
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.1)';
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+
+            // File upload interaction
+            document.querySelectorAll('.file-upload').forEach(upload => {
+                upload.addEventListener('click', function () {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.multiple = true;
+                    input.accept = 'image/*,video/*';
+                    input.click();
+
+                    input.addEventListener('change', function () {
+                        if (this.files.length > 0) {
+                            upload.innerHTML = `
+                                <p>📁 ${this.files.length} file(s) selected</p>
+                                <p style="font-size: 12px; color: #718096;">Click to change selection</p>
+                            `;
+                            upload.style.borderColor = '#38a169';
+                            upload.style.background = '#f0fff4';
+                        }
+                    });
+                });
+
+                // Drag and drop functionality
+                upload.addEventListener('dragover', function (e) {
+                    e.preventDefault();
+                    this.style.borderColor = '#667eea';
+                    this.style.background = '#f7fafc';
+                });
+
+                upload.addEventListener('dragleave', function (e) {
+                    e.preventDefault();
+                    this.style.borderColor = '#cbd5e0';
+                    this.style.background = 'transparent';
+                });
+
+                upload.addEventListener('drop', function (e) {
+                    e.preventDefault();
+                    const files = e.dataTransfer.files;
+                    if (files.length > 0) {
+                        this.innerHTML = `
+                            <p>📁 ${files.length} file(s) uploaded</p>
+                            <p style="font-size: 12px; color: #718096;">Click to change selection</p>
+                        `;
+                        this.style.borderColor = '#38a169';
+                        this.style.background = '#f0fff4';
+                    }
+                });
+            });
+
+            // Simulate real-time updates
+            setTimeout(() => {
+                const alerts = document.querySelectorAll('.alert');
+                alerts.forEach(alert => {
+                    alert.style.animation = 'pulse 2s infinite';
+                });
+            }, 3000);
+
+            // Add notification sound simulation
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    color: white;
+                    padding: 16px 20px;
+                    border-radius: 12px;
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+                    z-index: 1000;
+                    animation: slideIn 0.5s ease-out;
+                `;
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span>🔔</span>
+                        <span>${message}</span>
+                    </div>
+                `;
+
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.remove();
+                }, 4000);
+            }
+
+            // Simulate notifications
+            const notifications = [
+                "New maintenance request received",
+                "Rent payment processed successfully",
+                "Compliance check completed",
+                "Task assigned to contractor"
+            ];
+
+            let notificationIndex = 0;
+            setInterval(() => {
+                showNotification(notifications[notificationIndex % notifications.length]);
+                notificationIndex++;
+            }, 15000);
+        });
+
+        // Add CSS animation for notifications
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.02); }
+            }
+            
+            .nav-link:hover {
+                transform: translateX(5px) scale(1.02);
+            }
+            
+            .btn:active {
+                transform: translateY(1px);
+            }
+            
+            .stat-card {
+                transition: all 0.3s ease;
+            }
+            
+            .stat-card:hover {
+                transform: translateY(-4px) scale(1.02);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>
