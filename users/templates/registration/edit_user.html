@@ -1,0 +1,49 @@
+{% extends 'registration/base_registration.html' %}
+{% load form_tags %}
+
+{% block sidebar %}
+<!-- Same sidebar as before -->
+<a href="{% url 'manager-dashboard' %}" class="slide-in">
+  <i class="fas fa-tachometer-alt"></i> Dashboard
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-tasks"></i> Task Center
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-tools"></i> Maintenance
+</a>
+<a href="{% url 'manager_properties' %}" class="slide-in">
+  <i class="fas fa-building"></i> Properties
+</a>
+<a href="{% url 'register_user' %}" class="slide-in active">
+  <i class="fas fa-user"></i> Register User
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-comments"></i> Messages
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-chart-bar"></i> Reports
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-book"></i> Knowledge Base
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Edit User</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            {% for field in form %}
+                <div class="form-group col-md-4">
+                    <label>{{ field.label }}</label>
+                    {{ field|add_class:"form-control" }}
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+        <a href="{% url 'register_user' %}" class="btn btn-secondary mt-3 ml-2">Cancel</a>
+    </form>
+</div>
+{% endblock %}

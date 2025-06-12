@@ -1,0 +1,37 @@
+{% extends "properties/base_properties.html" %}
+{% block title %}Edit Units for {{ property.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+  <h1 class="page-title">Edit Units</h1>
+  <p class="page-subtitle">Update unit details for {{ property.address }}</p>
+</div>
+
+<form method="POST">
+  {% csrf_token %}
+  {{ formset.management_form }}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Unit Name</th>
+        <th>Rent</th>
+        <th>Lease Start</th>
+        <th>Lease End</th>
+        <th>Delete?</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for form in formset %}
+      <tr>
+        {% for field in form.visible_fields %}
+        <td>{{ field }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="text-end">
+    <button type="submit" class="btn btn-dark">Save Changes</button>
+  </div>
+</form>
+{% endblock %}

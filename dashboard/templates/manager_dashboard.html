@@ -1,0 +1,210 @@
+{% extends "base_dashboard.html" %}
+{% block title %}Property Manager Dashboard{% endblock %}
+
+{% block sidebar %}
+<a href="#" class="slide-in active" style="animation-delay: 0.1s;">
+  <i class="fas fa-tachometer-alt"></i>
+  Dashboard
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.2s;">
+  <i class="fas fa-tasks"></i>
+  Task Center
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.3s;">
+  <i class="fas fa-tools"></i>
+  Maintenance
+</a>
+<a href="{% url 'manager_properties' %}" class="slide-in" style="animation-delay: 0.4s;">
+  <i class="fas fa-building"></i>
+  Properties
+</a>
+<a href="{% url 'register_user' %}" class="slide-in">
+  <i class="fas fa-user"></i> Register User
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.5s;">
+  <i class="fas fa-comments"></i>
+  Messages
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.6s;">
+  <i class="fas fa-chart-bar"></i>
+  Reports
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.7s;">
+  <i class="fas fa-book"></i>
+  Knowledge Base
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+  <h1 class="page-title">Property Manager Dashboard</h1>
+  <p class="page-subtitle">Manage your properties efficiently and stay on top of daily operations</p>
+</div>
+
+<!-- Key Metrics Cards -->
+<div class="row mb-4">
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card fade-in" style="animation-delay: 0.1s;">
+      <div class="card-body text-center">
+        <div class="card-number">0</div>
+        <h5 class="card-title">
+          <i class="fas fa-clock"></i>
+          Today's Tasks
+        </h5>
+        <p class="card-text">Pending completion</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card fade-in" style="animation-delay: 0.2s;">
+      <div class="card-body text-center">
+        <div class="card-number">0</div>
+        <h5 class="card-title">
+          <i class="fas fa-exclamation-triangle"></i>
+          Overdue Tickets
+        </h5>
+        <p class="card-text">Requires immediate attention</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card fade-in" style="animation-delay: 0.3s;">
+      <div class="card-body text-center">
+        <div class="card-number">0</div>
+        <h5 class="card-title">
+          <i class="fas fa-wrench"></i>
+          New Requests
+        </h5>
+        <p class="card-text">Maintenance requests</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card fade-in" style="animation-delay: 0.4s;">
+      <div class="card-body text-center">
+        <div class="card-number">{{ active_properties_count }}</div>
+        <h5 class="card-title">
+          <i class="fas fa-home"></i>
+          Active Properties
+        </h5>
+        <p class="card-text">Under management</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content Row -->
+<div class="row">
+  <!-- Today's Tasks -->
+  <div class="col-lg-6 mb-4">
+    <div class="card fade-in" style="animation-delay: 0.5s;">
+      <div class="card-body">
+        <h5 class="card-title">
+          <i class="fas fa-clipboard-list"></i>
+          Today's Priority Tasks
+        </h5>
+        <ul class="task-list">
+          <li>
+{#            <div>#}
+{#              <strong>Inspect Unit 201</strong>#}
+{#              <div class="text-muted small">King Street Building • Due 2:00 PM</div>#}
+{#            </div>#}
+          </li>
+        </ul>
+        <div class="mt-3">
+          <a href="#" class="btn btn-outline-dark btn-sm">View All Tasks</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="col-lg-6 mb-4">
+    <div class="card fade-in" style="animation-delay: 0.6s;">
+      <div class="card-body">
+        <h5 class="card-title">
+          <i class="fas fa-bell"></i>
+          Recent Activity
+        </h5>
+        <ul class="task-list">
+          <li>
+{#            <div>#}
+{#              <strong>New maintenance request</strong>#}
+{#              <div class="text-muted small">Unit 305 - Plumbing issue • 1 hour ago</div>#}
+{#            </div>#}
+          </li>
+        </ul>
+        <div class="mt-3">
+          <a href="#" class="btn btn-outline-dark btn-sm">View Activity Log</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+/* Additional styles specific to manager dashboard */
+.btn-dark {
+  background-color: var(--primary-black);
+  border-color: var(--primary-black);
+  font-weight: 500;
+}
+
+.btn-dark:hover {
+  background-color: var(--primary-gold);
+  border-color: var(--primary-gold);
+  color: var(--primary-black);
+}
+
+.btn-outline-dark {
+  color: var(--primary-black);
+  border-color: var(--primary-black);
+  font-weight: 500;
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--primary-black);
+  border-color: var(--primary-black);
+  color: var(--primary-white);
+}
+
+.text-muted {
+  color: var(--medium-gray) !important;
+}
+
+/* Progress indicators for tasks */
+.task-list li::before {
+  background: linear-gradient(45deg, var(--primary-gold), #f0c929);
+  box-shadow: 0 2px 4px rgba(223, 176, 17, 0.3);
+}
+
+/* Enhanced card hover effects for dashboard */
+.card:hover .card-number {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* Notification badges */
+.badge-urgent {
+  background-color: #dc3545;
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.badge-pending {
+  background-color: var(--primary-gold);
+  color: var(--primary-black);
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+</style>
+{% endblock %}

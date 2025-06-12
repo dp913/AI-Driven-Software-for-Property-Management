@@ -1,0 +1,130 @@
+{% extends "properties/base_properties.html" %}
+{% block title %}Property Manager Property Details{% endblock %}
+
+{% block sidebar %}
+<!-- Same as above -->
+<a href="{% url 'manager-dashboard' %}" class="slide-in">
+  <i class="fas fa-tachometer-alt"></i> Dashboard
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-tasks"></i> Task Center
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-tools"></i> Maintenance
+</a>
+<a href="{% url 'manager_properties' %}" class="slide-in active">
+  <i class="fas fa-building"></i> Properties
+</a>
+<a href="{% url 'register_user' %}" class="slide-in">
+  <i class="fas fa-user"></i> Register User
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-comments"></i> Messages
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-chart-bar"></i> Reports
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-book"></i> Knowledge Base
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+  <h1 class="page-title">{{ property.address }}</h1>
+{#  <p class="page-subtitle">{{ property.address }}</p>#}
+</div>
+
+<div class="row mb-4 fade-in">
+  <div class="col-md-6">
+    <div class="card h-100">
+      {% if property.photo %}
+      <img src="{{ property.photo.url }}" class="card-img-top" alt="Property Image" style="height: 200px; object-fit: cover;">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title"><i class="fas fa-building"></i> Property Details</h5>
+        <p><strong>Units:</strong> {{ property.unit_count }}</p>
+        <p><strong>Managed By:</strong> {{ property.managed_by.get_full_name }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title"><i class="fas fa-user-tie"></i> Landlord Info</h5>
+        <p><strong>Name:</strong> {{ property.landlord.get_full_name }}</p>
+        <p><strong>Email:</strong> {{ property.landlord.email }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{#    Units and Tenants#}
+<div class="card fade-in">
+  <div class="card-body">
+    <h5 class="card-title"><i class="fas fa-users"></i> Tenants</h5>
+    {% if occupied_units %}
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Unit</th>
+            <th>Name</th>
+            <th>Rent</th>
+            <th>Lease Period</th>
+            <th>Contact</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for unit in occupied_units %}
+            <tr>
+              <td>{{ unit.unit_number }}</td>
+              <td>{{ unit.tenant.get_full_name }}</td>
+              <td>{{ unit.rent_amount }}</td>
+              <td>{{ unit.lease_start }} to {{ unit.lease_end }}</td>
+              <td>{{ unit.tenant.email }}</td>
+              <td>
+                  {{ unit.tenant.email }}<br>
+                  <a href="{% url 'remove_tenant' unit.id %}" class="btn btn-sm btn-outline-danger mt-1"
+                     onclick="return confirm('Are you sure you want to remove this tenant?');">
+                    <i class="fas fa-user-minus"></i> Remove
+                  </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No tenants added yet.</p>
+    {% endif %}
+
+    {% if vacant_units %}
+      <div class="mt-3 text-end">
+        <a href="{% url 'add_tenant_to_property' property.id %}" class="btn btn-dark">
+          <i class="fas fa-user-plus"></i> Add Tenant
+        </a>
+      </div>
+    {% else %}
+      <p class="text-muted mt-3"><em>All units are currently occupied.</em></p>
+    {% endif %}
+  </div>
+</div>
+
+{% if images %}
+<div class="card mb-4 fade-in">
+  <div class="card-body">
+    <h5 class="card-title"><i class="fas fa-images"></i> Property Images</h5>
+    <div class="row">
+      {% for image in images %}
+      <div class="col-md-4 mb-3">
+        <img src="{{ image.image.url }}" class="img-fluid rounded" alt="Property Image" style="height: 200px; object-fit: cover;">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

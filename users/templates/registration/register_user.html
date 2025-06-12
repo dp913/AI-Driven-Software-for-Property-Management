@@ -1,0 +1,180 @@
+{% extends 'registration/base_registration.html' %}
+{% load static %}
+{% load form_tags %}
+{% block title %}Register New User{% endblock %}
+
+{% block sidebar %}
+<!-- Same sidebar as before -->
+<a href="{% url 'manager-dashboard' %}" class="slide-in">
+  <i class="fas fa-tachometer-alt"></i> Dashboard
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-tasks"></i> Task Center
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-tools"></i> Maintenance
+</a>
+<a href="{% url 'manager_properties' %}" class="slide-in">
+  <i class="fas fa-building"></i> Properties
+</a>
+<a href="{% url 'register_user' %}" class="slide-in active">
+  <i class="fas fa-user"></i> Register User
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-comments"></i> Messages
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-chart-bar"></i> Reports
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-book"></i> Knowledge Base
+</a>
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .form-container {
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 40px;
+    }
+
+    .form-title {
+        color: #000000;
+        font-weight: 700;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .form-group label {
+        font-weight: 500;
+        color: #000;
+        margin-bottom: 6px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .btn-gold {
+        background-color: #DFB011;
+        color: #000;
+        font-weight: 600;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 10px;
+    }
+
+    .btn-gold:hover {
+        background-color: #cda10f;
+    }
+
+    .table thead {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    @media (max-width: 768px) {
+        .form-row {
+            display: block;
+        }
+
+        .form-group {
+            width: 100% !important;
+            margin-bottom: 20px;
+        }
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="form-container">
+        <h2 class="form-title">Register New User</h2>
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label for="id_first_name">First Name</label>
+                    {{ form.first_name|add_class:"form-control" }}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="id_last_name">Last Name</label>
+                    {{ form.last_name|add_class:"form-control" }}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="id_username">Username</label>
+                    {{ form.username|add_class:"form-control" }}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="id_email">Email</label>
+                    {{ form.email|add_class:"form-control" }}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="id_password1">Password</label>
+                    {{ form.password1|add_class:"form-control" }}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="id_password2">Confirm Password</label>
+                    {{ form.password2|add_class:"form-control" }}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="id_role">Role</label>
+                    {{ form.role|add_class:"form-control" }}
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-gold">Register User</button>
+            </div>
+        </form>
+    </div>
+
+    <h4 class="mb-3">Registered Users</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Date Joined</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.get_role_display }}</td>
+                        <td>{{ user.date_joined|date:"Y-m-d" }}</td>
+                        <td>
+                            <a href="{% url 'edit_user' user.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <a href="{% url 'delete_user' user.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No users registered yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

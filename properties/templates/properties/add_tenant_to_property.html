@@ -1,0 +1,68 @@
+{% extends "properties/base_properties.html" %}
+{% block title %}Add Tenant to {{ property.name }}{% endblock %}
+
+{% block sidebar %}
+<!-- Same sidebar as other manager pages -->
+<a href="{% url 'manager-dashboard' %}" class="slide-in">
+  <i class="fas fa-tachometer-alt"></i> Dashboard
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-tasks"></i> Task Center
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-tools"></i> Maintenance
+</a>
+<a href="{% url 'manager_properties' %}" class="slide-in active">
+  <i class="fas fa-building"></i> Properties
+</a>
+<a href="{% url 'register_user' %}" class="slide-in">
+  <i class="fas fa-user"></i> Register User
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-comments"></i> Messages
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-chart-bar"></i> Reports
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-book"></i> Knowledge Base
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+  <h1 class="page-title">Add Tenant to {{ property.address }}</h1>
+  <p class="page-subtitle">Assign a tenant to one of the vacant units below.</p>
+</div>
+
+<form method="POST" class="fade-in">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">Select Vacant Unit</label>
+    {{ form.unit }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Select Tenant</label>
+    {{ form.tenant }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Rent Amount ($)</label>
+    <input type="number" name="rent_amount" step="0.01" class="form-control" required>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label class="form-label">Lease Start Date</label>
+      <input type="date" name="lease_start" class="form-control">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Lease End Date</label>
+      <input type="date" name="lease_end" class="form-control">
+    </div>
+  </div>
+  <div class="text-end mt-3">
+    <button type="submit" class="btn btn-dark">
+      <i class="fas fa-user-plus"></i> Assign Tenant
+    </button>
+  </div>
+</form>
+{% endblock %}

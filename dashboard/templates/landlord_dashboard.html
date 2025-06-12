@@ -1,0 +1,408 @@
+{% extends "base_dashboard.html" %}
+{% block title %}Landlord Dashboard{% endblock %}
+
+{% block sidebar %}
+<a href="#" class="slide-in active" style="animation-delay: 0.1s;">
+  <i class="fas fa-tachometer-alt"></i>
+  Dashboard
+</a>
+<a href="{% url 'landlord_property_list' %}" class="slide-in" style="animation-delay: 0.2s;">
+  <i class="fas fa-building"></i>
+  Properties
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.4s;">
+  <i class="fas fa-dollar-sign"></i>
+  Financials
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.5s;">
+  <i class="fas fa-file-contract"></i>
+  Leases
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.6s;">
+  <i class="fas fa-comments"></i>
+  Messages
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.7s;">
+  <i class="fas fa-robot"></i>
+  AI Compliance
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.8s;">
+  <i class="fas fa-chart-line"></i>
+  Reports
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+  <h1 class="page-title">Landlord Dashboard</h1>
+  <p class="page-subtitle">Monitor your property portfolio performance and maximize your returns</p>
+</div>
+
+<!-- Key Financial Metrics -->
+<div class="row mb-4">
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card stats-card fade-in" style="animation-delay: 0.1s;">
+      <div class="card-body text-center position-relative">
+
+        <div class="card-number">$0</div>
+        <h5 class="card-title">
+          <i class="fas fa-dollar-sign"></i>
+          Monthly Revenue
+        </h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card stats-card fade-in" style="animation-delay: 0.2s;">
+      <div class="card-body text-center position-relative">
+        <div class="card-number text-warning">0</div>
+        <h5 class="card-title">
+          <i class="fas fa-exclamation-triangle"></i>
+          Late Payments
+        </h5>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+  <div class="card stats-card fade-in" style="animation-delay: 0.3s;">
+    <div class="card-body text-center position-relative">
+      <div class="card-number">{{ occupancy_rate }}%</div>
+      <h5 class="card-title">
+        <i class="fas fa-home"></i>
+        Occupancy Rate
+      </h5>
+    </div>
+  </div>
+</div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card stats-card fade-in" style="animation-delay: 0.4s;">
+      <div class="card-body text-center position-relative">
+        <div class="card-number">0</div>
+        <h5 class="card-title">
+          <i class="fas fa-file-contract"></i>
+          Lease Expirations
+        </h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content Row -->
+
+<!-- Maintenance & Compliance -->
+<div class="row">
+  <div class="mb-4">
+    <div class="card fade-in" style="animation-delay: 0.9s;">
+      <div class="card-body">
+        <h5 class="card-title">
+          <i class="fas fa-tools"></i>
+          Maintenance Overview
+        </h5>
+        <div class="maintenance-summary">
+          <div class="row">
+            <div class="col-md-3 text-center">
+              <div class="maintenance-stat">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Open Tickets</div>
+              </div>
+            </div>
+            <div class="col-md-3 text-center">
+              <div class="maintenance-stat">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Urgent</div>
+              </div>
+            </div>
+            <div class="col-md-3 text-center">
+              <div class="maintenance-stat">
+                <div class="stat-number">0</div>
+                <div class="stat-label">This Month</div>
+              </div>
+            </div>
+            <div class="col-md-3 text-center">
+              <div class="maintenance-stat">
+                <div class="stat-number">$0</div>
+                <div class="stat-label">Total Cost</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="maintenance-recent mt-4">
+          <h6 class="mb-3">Recent Maintenance Requests</h6>
+{#          <div class="maintenance-item">#}
+{#            <div class="maintenance-priority high"></div>#}
+{#            <div class="maintenance-content">#}
+{#              <div class="d-flex justify-content-between align-items-start">#}
+{#                <div>#}
+{#                  <strong>HVAC System Failure</strong>#}
+{#                  <div class="text-muted small">Unit 305, King Street • Reported 2 hours ago</div>#}
+{#                </div>#}
+{#                <span class="maintenance-status urgent">Urgent</span>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+        </div>
+        <div class="mt-3">
+          <a href="#" class="btn btn-primary-custom btn-sm">View All Requests</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<style>
+/* Enhanced Landlord Dashboard Styles */
+
+/* Stats Cards */
+.stats-card {
+  background: linear-gradient(135deg, var(--primary-white), #f8f9fa);
+  border-left: 4px solid var(--primary-gold);
+  overflow: visible;
+}
+
+.metric-trend {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.metric-trend.up {
+  background: #28a745;
+  color: white;
+}
+
+.metric-trend.urgent {
+  background: #dc3545;
+  color: white;
+}
+
+.metric-trend.new {
+  background: var(--primary-gold);
+  color: var(--primary-black);
+}
+
+.metric-trend.stable {
+  background: #6c757d;
+  color: white;
+}
+
+/* Property Performance */
+.property-performance-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.property-performance-item:last-child {
+  border-bottom: none;
+}
+
+.property-info-row {
+  width: 100%;
+}
+
+.performance-rate {
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+}
+
+.performance-rate.excellent {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.performance-rate.good {
+  background: rgba(223, 176, 17, 0.1);
+  color: var(--primary-gold);
+}
+
+.performance-rate.attention {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+
+/* Quick Actions */
+.quick-action-btn {
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.quick-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.quick-action-btn i {
+  font-size: 1.5rem;
+}
+
+/* Maintenance Styles */
+.maintenance-summary {
+  background: rgba(223, 176, 17, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.maintenance-stat {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-gold);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--medium-gray);
+  margin-top: 0.25rem;
+}
+
+.maintenance-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.maintenance-item:last-child {
+  border-bottom: none;
+}
+
+.maintenance-priority {
+  width: 4px;
+  height: 100%;
+  border-radius: 2px;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.maintenance-priority.high {
+  background: #dc3545;
+}
+
+.maintenance-priority.medium {
+  background: var(--primary-gold);
+}
+
+.maintenance-priority.low {
+  background: #28a745;
+}
+
+.maintenance-content {
+  flex: 1;
+}
+
+.maintenance-status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.maintenance-status.urgent {
+  background: #dc3545;
+  color: white;
+}
+
+.maintenance-status.pending {
+  background: var(--primary-gold);
+  color: var(--primary-black);
+}
+
+.maintenance-status.completed {
+  background: #28a745;
+  color: white;
+}
+
+
+
+/* Button Styles */
+.btn-primary-custom {
+  background: linear-gradient(135deg, var(--primary-gold), #f0c929);
+  border: none;
+  color: var(--primary-black);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+  color: var(--primary-black);
+}
+
+.btn-dark {
+  background-color: var(--primary-black);
+  border-color: var(--primary-black);
+  font-weight: 500;
+}
+
+.btn-dark:hover {
+  background-color: var(--primary-gold);
+  border-color: var(--primary-gold);
+  color: var(--primary-black);
+}
+
+.btn-outline-dark {
+  color: var(--primary-black);
+  border-color: var(--primary-black);
+  font-weight: 500;
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--primary-black);
+  border-color: var(--primary-black);
+  color: var(--primary-white);
+}
+
+
+.text-warning {
+  color: var(--primary-gold) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .maintenance-summary {
+    padding: 1rem;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .quick-action-btn {
+    height: 70px;
+    font-size: 0.8rem;
+  }
+
+  .quick-action-btn i {
+    font-size: 1.2rem;
+  }
+}
+</style>
+{% endblock %}

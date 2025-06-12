@@ -1,0 +1,118 @@
+{% extends "properties/base_properties.html" %}
+{% load form_filters %}
+{% block title %}Add New Property{% endblock %}
+
+{% block sidebar %}
+<!-- Sidebar remains the same -->
+<a href="{% url 'manager-dashboard' %}" class="slide-in">
+  <i class="fas fa-tachometer-alt"></i> Dashboard
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-tasks"></i> Task Center
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-tools"></i> Maintenance
+</a>
+<a href="{% url 'manager_properties' %}" class="slide-in active">
+  <i class="fas fa-building"></i> Properties
+</a>
+<a href="{% url 'register_user' %}" class="slide-in">
+  <i class="fas fa-user"></i> Register User
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-comments"></i> Messages
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-chart-bar"></i> Reports
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-book"></i> Knowledge Base
+</a>
+{% endblock %}
+
+{% block content %}
+<style>
+  .card-section {
+    border-radius: 20px;
+    padding: 2rem;
+    background: #ffffff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .unit-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1rem;
+    background: #fafafa;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  textarea.form-control {
+    height: 60px !important;  /* or adjust to preferred height */
+    resize: vertical;
+  }
+</style>
+
+<div class="page-header fade-in mb-4">
+  <h1 class="page-title">🏢 Add New Property</h1>
+  <p class="page-subtitle text-muted">Enter property details and add unit-specific rent and lease info.</p>
+</div>
+
+<form method="POST" enctype="multipart/form-data" class="fade-in">
+  {% csrf_token %}
+  <div class="card-section mb-4">
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <label for="address" class="form-label"><strong>Address</strong></label>
+        {{ form.address|add_class:"form-control" }}
+      </div>
+
+      <div class="col-md-3">
+        <label for="unit_count" class="form-label"><strong>Number of Units</strong></label>
+        <input type="number" name="unit_count" id="unit_count" class="form-control" min="1" required>
+      </div>
+
+      <div class="col-md-3">
+        <label for="landlord" class="form-label"><strong>Assign Landlord</strong></label>
+        {{ form.landlord|add_class:"form-control" }}
+      </div>
+
+      <div class="col-md-12">
+          <label for="photos" class="form-label"><strong>Upload Property Images</strong></label>
+          <input type="file" name="photos" id="photos" class="form-control" multiple>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Unit Fields -->
+  <div id="unit-names-container" class="mb-4 fade-in"></div>
+
+  <div class="text-end">
+    <button type="submit" class="btn btn-dark px-4 py-2 rounded-pill">
+      <i class="fas fa-check me-1"></i> Submit Property
+    </button>
+  </div>
+</form>
+
+<script>
+  document.getElementById('unit_count').addEventListener('input', function () {
+    const count = parseInt(this.value);
+    const container = document.getElementById('unit-names-container');
+    container.innerHTML = '';
+    if (count > 0 && count <= 100) {
+      for (let i = 1; i <= count; i++) {
+        container.innerHTML += `
+          <div class="unit-card mb-3">
+            <h6 class="mb-3">🏘️ Unit ${i}</h6>
+            <div class="row g-3">
+              <div class="col-md-3">
+                <label class="form-label">Unit Name</label>
+                <input type="text" name="unit_${i}" class="form-control" required>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+  });
+</script>
+{% endblock %}

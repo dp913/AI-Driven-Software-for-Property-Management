@@ -1,0 +1,188 @@
+{% extends "base_dashboard.html" %}
+{% block title %}Tenant Dashboard{% endblock %}
+
+{% block sidebar %}
+<a href="#" class="slide-in active" style="animation-delay: 0.1s;">
+  <i class="fas fa-tachometer-alt"></i>
+  Dashboard
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.2s;">
+  <i class="fas fa-credit-card"></i>
+  Rent Status
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.3s;">
+  <i class="fas fa-tools"></i>
+  Maintenance
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.4s;">
+  <i class="fas fa-file-alt"></i>
+  Documents
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.5s;">
+  <i class="fas fa-comments"></i>
+  Messages
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.6s;">
+  <i class="fas fa-user"></i>
+  Profile
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+  <h1 class="page-title">Welcome Home</h1>
+  <p class="page-subtitle">Your tenant portal for rent, maintenance, and important updates</p>
+</div>
+
+<!-- Status Alert -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card fade-in" style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border-left: 4px solid var(--primary-gold); animation-delay: 0.1s;">
+      <div class="card-body d-flex align-items-center">
+        <i class="fas fa-exclamation-circle text-warning me-3" style="font-size: 1.5rem;"></i>
+        <div>
+          <strong>Action Required:</strong> Submit updated ID by June 5th to complete your profile verification.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Key Status Cards -->
+<div class="row mb-4">
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="card fade-in" style="animation-delay: 0.2s;">
+      <div class="card-body text-center">
+        <div class="card-number" style="color: #dc3545;">$0</div>
+        <h5 class="card-title">
+          <i class="fas fa-calendar-alt"></i>
+          Rent Due
+        </h5>
+        <p class="card-text">Due by June 1st</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="card fade-in" style="animation-delay: 0.3s;">
+      <div class="card-body text-center">
+        <div class="card-number" style="color: #28a745;">✓</div>
+        <h5 class="card-title">
+          <i class="fas fa-wrench"></i>
+          Maintenance
+        </h5>
+        <p class="card-text">All systems running smoothly</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="card fade-in" style="animation-delay: 0.4s;">
+      <div class="card-body text-center">
+        <div class="card-number">0</div>
+        <h5 class="card-title">
+          <i class="fas fa-envelope"></i>
+          New Messages
+        </h5>
+        <p class="card-text">Unread notifications</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content Row -->
+
+<!-- Recent Messages and Announcements -->
+<div class="row">
+
+  <!-- Property Info -->
+  <div class="col-lg-8 mb-4">
+    <div class="card fade-in" style="animation-delay: 0.8s;">
+      <div class="card-body">
+        <h5 class="card-title">
+          <i class="fas fa-home"></i>
+          Your Unit
+        </h5>
+        <div class="property-info">
+          <div class="mb-3 p-3" style="background-color: rgba(248, 249, 250, 0.8); border-radius: 8px;">
+            <div class="fw-bold mb-1">Unit 305B</div>
+            <div class="text-muted small">King Street Building</div>
+            <div class="text-muted small">2 Bed • 1 Bath • 850 sq ft</div>
+          </div>
+          <div class="lease-info">
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Lease Start:</span>
+              <span class="fw-semibold">Jan 1, 2025</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Lease End:</span>
+              <span class="fw-semibold">Dec 31, 2025</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="text-muted">Monthly Rent:</span>
+              <span class="fw-semibold">$900.00</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3">
+          <a href="#" class="btn btn-outline-dark btn-sm">View Lease Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Additional styles specific to tenant dashboard */
+.badge-success {
+  background-color: #28a745;
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.payment-summary {
+  transition: all 0.3s ease;
+}
+
+.payment-summary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(223, 176, 17, 0.2);
+}
+
+.property-info {
+  font-size: 0.95rem;
+}
+
+.lease-info {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+/* Tenant-specific card hover effects */
+.card:hover .fa-money-bill-wave {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Status indicators */
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.text-warning {
+  color: #ffc107 !important;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+</style>
+{% endblock %}
