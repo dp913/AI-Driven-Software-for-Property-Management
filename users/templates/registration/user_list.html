@@ -1,0 +1,145 @@
+{% extends 'registration/base_registration.html' %}
+{% block title %}User Management{% endblock %}
+
+{% block sidebar %}
+<!-- Same sidebar as before -->
+<a href="{% url 'manager-dashboard' %}" class="slide-in">
+  <i class="fas fa-tachometer-alt"></i> Dashboard
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-tasks"></i> Task Center
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-tools"></i> Maintenance
+</a>
+<a href="{% url 'manager_properties' %}" class="slide-in">
+  <i class="fas fa-building"></i> Properties
+</a>
+<a href="{% url 'register_user' %}" class="slide-in active">
+  <i class="fas fa-user"></i> Register User
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-comments"></i> Messages
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-chart-bar"></i> Reports
+</a>
+<a href="#" class="slide-in">
+  <i class="fas fa-book"></i> Knowledge Base
+</a>
+{% endblock %}
+
+{% block content %}
+    <style>
+    .form-group label {
+        font-weight: 500;
+        color: #000;
+        margin-bottom: 6px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .form-row .form-control {
+        border-radius: 8px;
+    }
+    .btn-gold {
+        background-color: #DFB011;
+        color: #000;
+        font-weight: 600;
+        border-radius: 10px;
+        border: none;
+        padding: 8px 20px;
+    }
+    .btn-gold:hover {
+        background-color: #a88003;
+    }
+    </style>
+
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Registered Users</h2>
+        <a href="{% url 'register_user' %}" class="btn btn-gold"><i class="fas fa-plus"></i> Register New User</a>
+    </div>
+
+    <form method="get" id="userFilterForm" class="mb-4">
+        <div class="row">
+            <div class="form-group col-md-2 mb-2">
+                <select name="role" class="form-control" onchange="document.getElementById('userFilterForm').submit();">
+                    <option value="">All</option>
+                    <option value="tenant" {% if selected_role == 'tenant' %}selected{% endif %}>Tenants</option>
+                    <option value="landlord" {% if selected_role == 'landlord' %}selected{% endif %}>Landlords</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6 mb-2">
+                <input type="text" name="q" class="form-control" id="searchInput"
+                       placeholder="Search by name"
+                       value="{{ search_query|default_if_none:'' }}"
+                       onchange="document.getElementById('userFilterForm').submit();">
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-gold">Search</button>
+            </div>
+            {% if selected_role or search_query %}
+                <div class="col-auto">
+                    <a href="{% url 'user_list' %}" class="btn btn-outline-secondary">Reset</a>
+                </div>
+            {% endif %}
+        </div>
+    </form>
+
+
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Date Joined</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.get_role_display }}</td>
+                        <td>{{ user.date_joined|date:"Y-m-d" }}</td>
+                        <td>
+                            <a href="{% url 'edit_user' user.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <a href="{% url 'delete_user' user.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?');">Delete</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="6" class="text-center">No users registered yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+<script>
+    const searchInput = document.getElementById("searchInput");
+    let searchTimer;
+
+    searchInput.addEventListener("input", function () {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+            document.getElementById("userFilterForm").submit();
+        }, 600);
+    });
+</script>

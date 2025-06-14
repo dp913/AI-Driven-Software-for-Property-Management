@@ -182,6 +182,9 @@ def remove_tenant(request, unit_id):
     return redirect('property_detail', pk=unit.property.id)
 
 
+
+
+
 def is_landlord(user):
     return user.is_authenticated and user.role == 'landlord'
 
