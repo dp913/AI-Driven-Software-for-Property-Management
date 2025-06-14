@@ -4,58 +4,139 @@
 <head>
     <meta charset="UTF-8">
     <title>Login | Property Management</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background: #f4f6f8;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
-        .login-box {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 300px;
-        }
-        .login-box h2 {
+
+        .login-container {
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 380px;
             text-align: center;
         }
-        .login-box form {
-            display: flex;
-            flex-direction: column;
+
+        .logo {
+            max-width: 250px;
+            margin: 0 auto 12px;
         }
-        .login-box input {
-            margin: 0.5rem 0;
-            padding: 0.5rem;
+
+        .company-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-bottom: 24px;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #000;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
             border-radius: 8px;
             border: 1px solid #ccc;
+            font-size: 14px;
         }
-        .login-box button {
-            padding: 0.6rem;
-            background: #007bff;
+
+        .btn-login {
+            background-color: #DFB011;
+            color: #000;
+            font-weight: 600;
             border: none;
-            color: white;
-            border-radius: 8px;
-            margin-top: 1rem;
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-login:hover {
+            background-color: #cda10f;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .forgot-link {
+            display: block;
+            margin-top: 14px;
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="login-box">
+
+    <div class="login-container">
+        <img src="/media/images/logo.png" alt="Logo" class="logo">
+{#        <div class="company-title">Naaz Property Management</div>#}
         <h2>Login</h2>
+
         {% if form.errors %}
-            <p style="color:red;">Invalid username or password.</p>
+            <div class="error-message">Invalid username or password.</div>
         {% endif %}
+
         <form method="post">
             {% csrf_token %}
-            {{ form.username.label_tag }} {{ form.username }}
-            {{ form.password.label_tag }} {{ form.password }}
-            <button type="submit">Login</button>
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            <button type="submit" class="btn-login">Login</button>
         </form>
+
+        <a href="{% url 'password_reset' %}" class="forgot-link">Forgot password?</a>
     </div>
 </body>
 </html>
