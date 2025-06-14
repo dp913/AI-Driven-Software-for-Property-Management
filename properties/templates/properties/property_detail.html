@@ -15,7 +15,7 @@
 <a href="{% url 'manager_properties' %}" class="slide-in active">
   <i class="fas fa-building"></i> Properties
 </a>
-<a href="{% url 'register_user' %}" class="slide-in">
+<a href="{% url 'user_list' %}" class="slide-in">
   <i class="fas fa-user"></i> Register User
 </a>
 <a href="#" class="slide-in">
@@ -63,7 +63,7 @@
 
 
 {#    Units and Tenants#}
-<div class="card fade-in">
+<div class="card mb-4 fade-in">
   <div class="card-body">
     <h5 class="card-title"><i class="fas fa-users"></i> Tenants</h5>
     {% if occupied_units %}

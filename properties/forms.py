@@ -27,7 +27,8 @@ class AssignTenantForm(forms.Form):
         queryset=Unit.objects.none(),
         label='Select Unit'
     )
-    tenant = forms.ModelChoiceField(
+
+    tenant = FullNameModelChoiceField(
         queryset=CustomUser.objects.filter(role='tenant', unit__isnull=True),
         label='Select Tenant'
     )
