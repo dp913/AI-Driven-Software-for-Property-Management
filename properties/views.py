@@ -9,6 +9,8 @@ from django.forms import modelformset_factory
 import os
 import shutil
 import re
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
 
 # Create your views here.
 def is_property_manager(user):
@@ -122,23 +124,53 @@ def add_tenant_to_property(request, pk):
 
 @login_required
 @user_passes_test(is_property_manager)
-def edit_units(request, property_id):
-    property = get_object_or_404(Property, id=property_id)
-    UnitFormSet = modelformset_factory(Unit, fields=('unit_number', 'rent_amount', 'lease_start', 'lease_end'), extra=0, can_delete=True)
-    queryset = Unit.objects.filter(property=property)
+def edit_property(request, pk):
+    property = get_object_or_404(Property, pk=pk)
 
     if request.method == 'POST':
-        formset = UnitFormSet(request.POST, queryset=queryset)
-        if formset.is_valid():
-            formset.save()
-            messages.success(request, "Units updated successfully.")
+        form = PropertyForm(request.POST, instance=property)
+
+        if form.is_valid():
+            property = form.save(commit=False)  # We'll update unit_count manually later
+
+            # Save new uploaded images
+            images = request.FILES.getlist('photos')
+            for img in images:
+                PropertyImage.objects.create(property=property, image=img)
+
+            # Add new units
+            new_units = request.POST.getlist('new_unit[]')
+
+            for name in new_units:
+                if name.strip():
+                    Unit.objects.create(property=property, unit_number=name.strip())
+
+
+            # Remove selected unoccupied units
+            units_to_remove = request.POST.getlist('delete_units')
+            for unit_id in units_to_remove:
+                try:
+                    unit = Unit.objects.get(id=unit_id, property=property, tenant__isnull=True)
+                    unit.delete()
+                except Unit.DoesNotExist:
+                    continue
+
+            # Update unit_count based on current total units for this property
+            property.unit_count = property.unit_set.count()
+            property.save()
+
+            messages.success(request, "Property updated successfully.")
             return redirect('property_detail', pk=property.id)
     else:
-        formset = UnitFormSet(queryset=queryset)
+        form = PropertyForm(instance=property)
 
-    return render(request, 'properties/edit_units.html', {
+    unoccupied_units = property.unit_set.filter(tenant__isnull=True)
+
+    return render(request, 'properties/edit_property.html', {
+        'form': form,
         'property': property,
-        'formset': formset
+        'images': PropertyImage.objects.filter(property=property),
+        'unoccupied_units': unoccupied_units
     })
 
 @login_required
@@ -182,6 +214,58 @@ def remove_tenant(request, unit_id):
     return redirect('property_detail', pk=unit.property.id)
 
 
+@login_required
+@user_passes_test(is_property_manager)
+def edit_tenant_assignment(request, unit_id):
+    unit = get_object_or_404(Unit, id=unit_id)
+    property = unit.property
+
+    # Prepare dropdown options (current tenant + unassigned)
+    tenant_queryset = CustomUser.objects.filter(role='tenant', unit__isnull=True)
+    if unit.tenant:
+        tenant_queryset = CustomUser.objects.filter(pk=unit.tenant.pk) | tenant_queryset
+
+    if request.method == 'POST':
+        tenant_id = request.POST.get('tenant')
+        rent_amount = request.POST.get('rent_amount')
+        lease_start = request.POST.get('lease_start') or None
+        lease_end = request.POST.get('lease_end') or None
+
+        try:
+            selected_tenant = CustomUser.objects.get(pk=tenant_id, role='tenant')
+        except CustomUser.DoesNotExist:
+            messages.error(request, "Invalid tenant selected.")
+            return redirect('property_detail', pk=property.id)
+
+        # Update unit
+        unit.tenant = selected_tenant
+        unit.rent_amount = rent_amount
+        unit.lease_start = lease_start
+        unit.lease_end = lease_end
+        unit.save()
+
+        messages.success(request, "Tenant details updated.")
+        return redirect('property_detail', pk=property.id)
+
+    return render(request, 'properties/edit_tenant_assignment.html', {
+        'unit': unit,
+        'property': property,
+        'tenants': tenant_queryset
+    })
+
+
+
+
+@require_POST
+@login_required
+@user_passes_test(is_property_manager)
+def delete_property_image(request, image_id):
+    try:
+        image = PropertyImage.objects.get(id=image_id)
+        image.delete()
+        return JsonResponse({'success': True})
+    except PropertyImage.DoesNotExist:
+        return JsonResponse({'success': False}, status=404)
 
 
 
