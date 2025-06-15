@@ -11,6 +11,7 @@ import shutil
 import re
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
+from django.db.models import Q
 
 # Create your views here.
 def is_property_manager(user):
@@ -20,15 +21,25 @@ def is_property_manager(user):
 @login_required
 @user_passes_test(is_property_manager)
 def manager_properties(request):
+    query = request.GET.get('q', '')
     properties = Property.objects.all()
-    properties_with_thumbnails = []
 
-    for prop in properties:
-        first_image = PropertyImage.objects.filter(property=prop).first()
-        properties_with_thumbnails.append((prop, first_image))
+    if query:
+        properties = properties.filter(
+            Q(address__icontains=query) |
+            Q(landlord__first_name__icontains=query) |
+            Q(landlord__last_name__icontains=query) |
+            Q(managed_by__first_name__icontains=query) |
+            Q(managed_by__last_name__icontains=query)
+        )
+
+    properties_with_thumbnails = [
+        (prop, PropertyImage.objects.filter(property=prop).first()) for prop in properties
+    ]
 
     return render(request, 'properties/manager_properties.html', {
-        'properties_with_thumbnails': properties_with_thumbnails
+        'properties_with_thumbnails': properties_with_thumbnails,
+        'query': query,
     })
 
 
