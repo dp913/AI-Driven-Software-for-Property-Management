@@ -437,12 +437,21 @@
     color: #000;
     font-size: 18px;
   }
+
+  .logo {
+      max-width: 250px;
+      margin-bottom: 2.5rem;
+      padding: 0 1.5rem;
+      font-size: 1.4rem;
+      position: relative;
+    }
   </style>
 </head>
 <body>
   <!-- Sidebar -->
   <div class="sidebar">
-    <h4>Naaz Property Management</h4>
+    <img src="/media/images/logo.png" alt="Logo" class="logo">
+{#    <h4>Naaz Property Management</h4>#}
     <nav class="sidebar-nav">
       {% block sidebar %}
       <a href="#" class="slide-in">
