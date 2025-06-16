@@ -72,6 +72,7 @@
             <div class="form-group col-md-2 mb-2">
                 <select name="role" class="form-control" onchange="document.getElementById('userFilterForm').submit();">
                     <option value="">All</option>
+                    <option value="manager" {% if selected_role == 'manager' %}selected{% endif %}>Property Manager</option>
                     <option value="tenant" {% if selected_role == 'tenant' %}selected{% endif %}>Tenants</option>
                     <option value="landlord" {% if selected_role == 'landlord' %}selected{% endif %}>Landlords</option>
                 </select>

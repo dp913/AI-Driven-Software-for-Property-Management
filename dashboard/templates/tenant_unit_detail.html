@@ -1,0 +1,54 @@
+{% extends "base_dashboard.html" %}
+{% block title %}Unit Details{% endblock %}
+
+{% block sidebar %}
+<a href="{% url 'tenant-dashboard' %}" class="slide-in" style="animation-delay: 0.1s;">
+  <i class="fas fa-tachometer-alt"></i>
+  Dashboard
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.2s;">
+  <i class="fas fa-credit-card"></i>
+  Rent Status
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.3s;">
+  <i class="fas fa-tools"></i>
+  Maintenance
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.4s;">
+  <i class="fas fa-file-alt"></i>
+  Documents
+</a>
+<a href="#" class="slide-in" style="animation-delay: 0.5s;">
+  <i class="fas fa-comments"></i>
+  Messages
+</a>
+{#<a href="#" class="slide-in" style="animation-delay: 0.6s;">#}
+{#  <i class="fas fa-user"></i>#}
+{#  Profile#}
+{#</a>#}
+{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+  <h1 class="page-title">Your Unit Details</h1>
+</div>
+
+<div class="card mt-4 fade-in">
+  <div class="card-body">
+    <h5 class="card-title">Unit {{ unit.unit_number }}</h5>
+    <p><strong>Property Address:</strong> {{ property.address }}</p>
+    <p><strong>Lease Start:</strong> {{ unit.lease_start }}</p>
+    <p><strong>Lease End:</strong> {{ unit.lease_end }}</p>
+    <p><strong>Monthly Rent:</strong> ${{ unit.rent_amount }}</p>
+
+    {% if manager %}
+      <hr>
+      <h5 class="card-title">Property Manager</h5>
+      <p><strong>Name:</strong> {{ manager.get_full_name }}</p>
+      <p><strong>Email:</strong> {{ manager.email }}</p>
+    {% else %}
+      <p class="text-muted">No manager assigned.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
