@@ -30,6 +30,26 @@
 {% endblock %}
 
 {% block content %}
+
+<style>
+.carousel .carousel-item img {
+  border-radius: 12px;
+}
+
+.img-thumbnail {
+  transition: 0.3s ease;
+}
+.img-thumbnail:hover {
+  opacity: 0.8;
+  border-color: #dfb011;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%) sepia(100%) saturate(500%) hue-rotate(10deg); /* Gold-ish */
+}
+</style>
+
+
 <div class="page-header fade-in">
   <h1 class="page-title">{{ property.address }}</h1>
 {#  <p class="page-subtitle">{{ property.address }}</p>#}
@@ -85,23 +105,24 @@
         </thead>
         <tbody>
           {% for unit in occupied_units %}
-            <tr>
-              <td>{{ unit.unit_number }}</td>
-              <td>{{ unit.tenant.get_full_name }}</td>
-              <td>{{ unit.rent_amount }}</td>
-              <td>{{ unit.lease_start }} to {{ unit.lease_end }}</td>
-              <td>{{ unit.tenant.email }}</td>
-              <td>
-{#                  {{ unit.tenant.email }}<br>#}
-                  <a href="{% url 'edit_tenant_assignment' unit.id %}" class="btn btn-sm btn-outline-primary mt-1">
-                      <i class="fas fa-edit"></i> Edit
-                  </a>
-                  <a href="{% url 'remove_tenant' unit.id %}" class="btn btn-sm btn-outline-danger mt-1"
-                     onclick="return confirm('Are you sure you want to remove this tenant?');">
-                    <i class="fas fa-user-minus"></i> Remove
-                  </a>
-              </td>
-            </tr>
+              <tr>
+                  <td>{{ unit.unit_number }}</td>
+                  <td>{{ unit.tenant.get_full_name }}</td>
+                  <td>{{ unit.rent_amount }}</td>
+                  <td>{{ unit.lease_start }} to {{ unit.lease_end }}</td>
+                  <td>{{ unit.tenant.email }}</td>
+                  <td>
+                      {#                  {{ unit.tenant.email }}<br>#}
+                      <a href="{% url 'edit_tenant_assignment' unit.id %}"
+                         class="btn btn-sm btn-outline-primary mt-1">
+                          <i class="fas fa-edit"></i> Edit
+                      </a>
+                      <a href="{% url 'remove_tenant' unit.id %}" class="btn btn-sm btn-outline-danger mt-1"
+                         onclick="return confirm('Are you sure you want to remove this tenant?');">
+                          <i class="fas fa-user-minus"></i> Remove
+                      </a>
+                  </td>
+              </tr>
           {% endfor %}
         </tbody>
       </table>
@@ -125,15 +146,40 @@
 <div class="card mb-4 fade-in">
   <div class="card-body">
     <h5 class="card-title"><i class="fas fa-images"></i> Property Images</h5>
+
+    <!-- Carousel -->
+    <div id="propertyImageCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% for image in images %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <img src="{{ image.image.url }}" class="d-block w-100 rounded" alt="Property Image"
+               style="height: 500px; object-fit: contain;">
+        </div>
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#propertyImageCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#propertyImageCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- Thumbnails -->
     <div class="row">
       {% for image in images %}
-      <div class="col-md-4 mb-3">
-        <img src="{{ image.image.url }}" class="img-fluid rounded" alt="Property Image" style="height: 200px; object-fit: cover;">
+      <div class="col-4 col-md-2 mb-2">
+        <img src="{{ image.image.url }}" class="img-thumbnail"
+             style="height: 100px; object-fit: cover; cursor: pointer;"
+             onclick="document.querySelector('#propertyImageCarousel .carousel-item.active').classList.remove('active'); document.querySelectorAll('#propertyImageCarousel .carousel-item')[{{ forloop.counter0 }}].classList.add('active');">
       </div>
       {% endfor %}
     </div>
   </div>
 </div>
 {% endif %}
+
 
 {% endblock %}

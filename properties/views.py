@@ -313,13 +313,17 @@ def landlord_property_detail(request, property_id):
     occupancy_rate = (occupied_units / total_units) * 100 if total_units else 0
     total_rent = sum(u.rent_amount for u in units if u.rent_amount) if total_units else 0
 
+    property_manager = property_obj.managed_by  # Can be None
+
     return render(request, 'properties/landlord_property_detail.html', {
         'property': property_obj,
         'units': units,
         'occupancy_rate': round(occupancy_rate, 2),
         'total_rent': round(total_rent, 2),
-        'images': images
+        'images': images,
+        'property_manager': property_manager,
     })
+
 
 
 @login_required

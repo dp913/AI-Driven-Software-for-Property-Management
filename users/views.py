@@ -23,9 +23,9 @@ def user_list(request):
     role = request.GET.get('role')
     query = request.GET.get('q', '').strip()
 
-    users = CustomUser.objects.filter(is_superuser=False).exclude(role='manager')  # Only show Tenants & Landlords
+    users = CustomUser.objects.filter(is_superuser=False)#.exclude(role='manager')  # Only show Tenants & Landlords
 
-    if role in ['tenant', 'landlord']:
+    if role in ['tenant', 'landlord', 'manager']:
         users = users.filter(role=role)
 
     if query:
